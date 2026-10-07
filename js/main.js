@@ -430,6 +430,14 @@ const App = {
       ctx.fillStyle = b.phase === 2 ? '#ff4060' : '#58d048'; ctx.fillRect(W / 2 - 50, 213, Math.round((Math.max(0, b.hp) / b.maxHp) * 100), 4);
     }
     if (this.saveIcon > 0 && this.saveIcon % 10 < 7) Font.draw('SALVO', W - 4, 18, '#80ff80', { align: 'right' });
+    // dica de controles no começo do jogo
+    if (Wd.def.id === 1 && !Game.checkpoint && Wd.t < 480 && !Wd.clear) {
+      const touch = typeof document !== 'undefined' && document.body && document.body.classList.contains('touch');
+      const tip = touch ? '◄ ► ANDAR   A: PULAR   B: CORRER' : 'SETAS: ANDAR   Z: PULAR   X: CORRER';
+      const w = Font.width(tip) + 12;
+      ctx.fillStyle = 'rgba(0,21,59,0.8)'; ctx.fillRect(W / 2 - w / 2, 200, w, 14);
+      Font.draw(tip, W / 2, 204, '#ffe384', { align: 'center' });
+    }
   },
 };
 

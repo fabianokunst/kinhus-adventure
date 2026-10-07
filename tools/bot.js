@@ -69,7 +69,7 @@ function control(Wd) {
       } else jump = true;
     }
     // perigo à frente
-    for (let dx = 4; dx < 30; dx += 4) { const t = tileAtPx(front + dx, feet + 2), t2 = tileAtPx(front + dx, feet - 4); if (t === '^' || t === '~' || t2 === '^') jump = true; }
+    for (let dx = 2; dx < (WALK ? 10 : 18); dx += 2) { const t = tileAtPx(front + dx, feet + 2), t2 = tileAtPx(front + dx, feet - 4); if (t === '^' || t === '~' || t2 === '^') jump = true; }
     // inimigo à frente
     for (const e of Wd.ents) if (e.enemy && e.alive && !e.dying && e.x > p.x && e.x - front < 36 && Math.abs((e.y + e.h) - feet) < 30) jump = true;
     for (const e of Wd.ents) if (e.kind === 'car' && e.x > p.x - 10 && e.x - front < 50) jump = true;

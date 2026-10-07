@@ -584,7 +584,12 @@ function updateItem(e, p) {
       case 'hotdog':
         if (Game.hearts < Game.maxHearts) { Game.hearts++; popup(cx - 6, cy, '+♥', '#ff8090'); } else addScore(1000, cx, cy);
         Sound.fx('eat'); break;
-      case 'coffee': Game.power = 1; Sound.fx('power'); popup(cx - 10, cy, 'CAFÉ!', '#ffd0a0'); Game.score += 1000; break;
+      case 'coffee': {
+        Game.power = 1; Sound.fx('power'); popup(cx - 10, cy, 'CAFÉ!', '#ffd0a0'); Game.score += 1000;
+        const touch = typeof document !== 'undefined' && document.body && document.body.classList.contains('touch');
+        World.banner = touch ? 'APERTE B PARA JOGAR GRÃOS!' : 'APERTE X PARA JOGAR GRÃOS!'; World.bannerT = 160;
+        break;
+      }
       case 'claws':
         p.wild = 600; Sound.fx('kinhurine'); Sound.play('kinhurine', true);
         popup(cx - 24, cy, 'KINHURINE!', '#ffe040'); Game.score += 1000; shake(6);

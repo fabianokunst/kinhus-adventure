@@ -68,7 +68,7 @@ body.touch #touch {
   display: flex;
   position: fixed;
   left: 0; right: 0; bottom: 0;
-  height: 220px;
+  height: 250px;
   padding: 0 18px calc(18px + env(safe-area-inset-bottom, 0px));
   align-items: flex-end;
   justify-content: space-between;
@@ -84,19 +84,20 @@ body.touch #touch {
   touch-action: none;
 }
 #touch button.on { background: var(--pad-on); border-color: var(--gold); }
-.pad { position: relative; width: 156px; height: 156px; pointer-events: none; }
+.pad { position: relative; flex-shrink: 0; width: 162px; height: 162px; pointer-events: none; }
 .pad button { position: absolute; width: 56px; height: 56px; border-radius: 10px; font-size: 18px; }
-.pad .up { left: 50px; top: 0; }
-.pad .left { left: 0; top: 50px; }
-.pad .right { left: 100px; top: 50px; }
-.pad .down { left: 50px; top: 100px; }
-.ab { position: relative; width: 156px; height: 130px; pointer-events: none; }
+.pad .up { left: 53px; top: 0; }
+.pad .left { left: 0; top: 53px; }
+.pad .right { left: 106px; top: 53px; }
+.pad .down { left: 53px; top: 106px; }
+.ab { position: relative; flex-shrink: 0; width: 150px; height: 130px; pointer-events: none; }
 .ab button { position: absolute; width: 70px; height: 70px; border-radius: 50%; font-size: 22px; }
 .ab .a { right: 0; top: 0; background: rgba(206, 29, 0, 0.45); }
 .ab .b { left: 0; top: 52px; background: rgba(255, 191, 48, 0.3); }
-#touch .start { align-self: flex-end; margin-bottom: 8px; padding: 8px 12px; border-radius: 16px; font-size: 12px; }
+#touch .start { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); padding: 8px 14px; border-radius: 16px; font-size: 12px; }
 
 @media (orientation: landscape) {
   body.touch #wrap { justify-content: center; padding-top: 0; }
   body.touch #touch { height: 100%; opacity: 0.6; }
+  #touch .start { top: auto; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
 }

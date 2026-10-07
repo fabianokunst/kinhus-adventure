@@ -41,9 +41,9 @@ const K_TOP = [
   '.......hhLLLLh......',
   '.....hhhLLLLsssh....',
   '....hhhhsssssssss...',
-  '....hhhssgggggggg...',
-  '....hhSsggGeggGeg...',
-  '....hhSssggggggggs..',
+  '....hhhssgggg.gggg..',
+  '....hhSsgLeLgLeLg...',
+  '....hhSsssLLssLLss..',
   '....bbbssssssssssS..',
   '....bbbbbbbbBwwwwb..',
   '....bbbbbbbbbBmmmb..',
@@ -87,9 +87,9 @@ const K_LEGS = {
 function kinhuRows(legs, opt = {}) {
   let top = K_TOP.slice();
   if (opt.arms) for (const k in opt.arms) top[k] = opt.arms[k];
-  if (opt.blink) { top[5] = top[5].replace(/e/g, 'G'); }
+  if (opt.blink) { top[5] = top[5].replace(/e/g, 'S'); }
   if (opt.hurt) {
-    top[5] = top[5].replace(/Ge/g, 'gg');
+    top[5] = top[5].replace(/e/g, 'B');
     top[8] = top[8].replace('wwww', 'mmmm');
     top[9] = top[9].replace('mmm', 'mwm');
   }

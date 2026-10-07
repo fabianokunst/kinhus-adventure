@@ -61,7 +61,7 @@ function fitScreen() {
   const touch = document.body.classList.contains('touch');
   const vw = window.innerWidth, vh = window.innerHeight;
   const portrait = vh > vw;
-  const availW = vw - 32, availH = touch ? (portrait ? vh - 240 : vh - 8) : vh - 56;
+  const availW = vw - 32, availH = touch ? (portrait ? vh - 270 : vh - 8) : vh - 56;
   let s = Math.min(availW / W, availH / H);
   if (s >= 2) s = Math.floor(s);
   cv.style.width = Math.floor(W * s) + 'px';
