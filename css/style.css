@@ -1,0 +1,102 @@
+/* Kinhu's Adventure — moldura da tela, barra de opções e controles de toque.
+   Visual único escuro (azul-marinho do logo + dourado), igual em qualquer tema do sistema. */
+:root {
+  --bg: #00153b;
+  --bg-2: #021a44;
+  --ink: #e9effb;
+  --gold: #ffbf30;
+  --orange: #ff8130;
+  --line: #2a3a6a;
+  --pad: rgba(233, 239, 251, 0.14);
+  --pad-on: rgba(255, 191, 48, 0.45);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  background-image: radial-gradient(circle at 50% 40%, var(--bg-2), var(--bg) 70%);
+  color: var(--ink);
+  overflow: hidden;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  font-family: "Cascadia Mono", Consolas, ui-monospace, monospace;
+}
+
+#wrap {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: env(safe-area-inset-top, 0px) 16px env(safe-area-inset-bottom, 0px);
+}
+
+canvas {
+  display: block;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  background: #000;
+  box-shadow: 0 0 0 3px #000, 0 0 0 5px var(--gold), 0 0 0 6px var(--orange), 0 18px 48px rgba(0, 0, 0, 0.6);
+}
+
+#bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+#bar button {
+  font: inherit;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  background: var(--bg-2);
+  border: 2px solid var(--line);
+  padding: 4px 10px;
+  cursor: pointer;
+}
+#bar button:hover, #bar button:focus-visible { border-color: var(--gold); color: var(--gold); outline: none; }
+
+/* ---------- toque ---------- */
+#touch { display: none; }
+body.touch #bar { display: none; }
+body.touch #wrap { justify-content: flex-start; padding-top: calc(12px + env(safe-area-inset-top, 0px)); }
+body.touch #touch {
+  display: flex;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 220px;
+  padding: 0 18px calc(18px + env(safe-area-inset-bottom, 0px));
+  align-items: flex-end;
+  justify-content: space-between;
+  pointer-events: none;
+}
+#touch button {
+  pointer-events: auto;
+  font: inherit;
+  font-weight: 700;
+  color: var(--ink);
+  background: var(--pad);
+  border: 2px solid rgba(233, 239, 251, 0.35);
+  touch-action: none;
+}
+#touch button.on { background: var(--pad-on); border-color: var(--gold); }
+.pad { position: relative; width: 156px; height: 156px; pointer-events: none; }
+.pad button { position: absolute; width: 56px; height: 56px; border-radius: 10px; font-size: 18px; }
+.pad .up { left: 50px; top: 0; }
+.pad .left { left: 0; top: 50px; }
+.pad .right { left: 100px; top: 50px; }
+.pad .down { left: 50px; top: 100px; }
+.ab { position: relative; width: 156px; height: 130px; pointer-events: none; }
+.ab button { position: absolute; width: 70px; height: 70px; border-radius: 50%; font-size: 22px; }
+.ab .a { right: 0; top: 0; background: rgba(206, 29, 0, 0.45); }
+.ab .b { left: 0; top: 52px; background: rgba(255, 191, 48, 0.3); }
+#touch .start { align-self: flex-end; margin-bottom: 8px; padding: 8px 12px; border-radius: 16px; font-size: 12px; }
+
+@media (orientation: landscape) {
+  body.touch #wrap { justify-content: center; padding-top: 0; }
+  body.touch #touch { height: 100%; opacity: 0.6; }
+}

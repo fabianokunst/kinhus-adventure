@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Prévia de sprites — Kinhu's Adventure</title>
+<style>
+  body { background: #6a7a9a; margin: 0; padding: 12px; font: 12px monospace; color: #fff; }
+  canvas { image-rendering: pixelated; }
+  #screen { display: none; }
+</style>
+</head>
+<body>
+<canvas id="screen"></canvas>
+<canvas id="out"></canvas>
+<script src="../js/core.js"></script>
+<script src="../js/sprites.js"></script>
+<script src="../js/world.js"></script>
+<script>
+  // ferramenta de desenvolvimento: mostra todos os sprites ampliados
+  const S = 4;
+  const out = document.getElementById('out');
+  const list = [];
+  const add = (name, c) => list.push([name, c]);
+  const K = SPR.kinhu;
+  add('idle', K.idle.r); add('blink', K.blink.r); K.run.forEach((s, i) => add('run' + i, s.r));
+  add('jump', K.jump.r); add('fall', K.fall.r); add('hurt', K.hurt.r); add('win', K.win.r);
+  add('cafe', SPR.kinhuCafe.idle.r); add('wild', SPR.kinhuWild[0].run[0].r); add('left', K.idle.l);
+  SPR.dog.forEach((s, i) => add('dog' + i, s.r)); add('bark', SPR.dogBark.r);
+  SPR.pigeon.forEach((s, i) => add('pigeon' + i, s.r));
+  SPR.roach.forEach((s, i) => add('roach' + i, s.r));
+  for (const p of ['coworker', 'intern', 'lady', 'thief', 'skater', 'worker']) { SPR[p].walk.forEach((s, i) => add(p + i, s.r)); add(p + 'act', SPR[p].act.r); }
+  SPR.bug.forEach((s, i) => add('bug' + i, s.r)); add('bugflat', SPR.bugFlat.r);
+  SPR.flybug.forEach((s, i) => add('fly' + i, s.r));
+  for (const k in SPR.boss) add('boss-' + k, SPR.boss[k].r);
+  SPR.coin.forEach((s, i) => add('coin' + i, s.r));
+  for (const k of ['hotdog', 'coffee', 'claws', 'badge', 'trophy', 'heart', 'heartEmpty', 'poop', 'plane', 'paper', 'water']) add(k, SPR[k].r);
+  SPR.bean.forEach((s, i) => add('bean' + i, s.r));
+  SPR.glitch.forEach((s, i) => add('glitch' + i, s.r));
+  add('head', SPR.kinhuHead); add('clock', SPR.clock);
+  if (typeof previewWorld === 'function') previewWorld(add);
+  // layout
+  const cols = 10, cell = 52 * S / 2;
+  let x = 0, y = 0, rowH = 0;
+  const maxW = 1400;
+  const pos = [];
+  for (const [n, c] of list) {
+    const w = Math.max(c.width * S, 70), h = c.height * S + 14;
+    if (x + w > maxW) { x = 0; y += rowH + 8; rowH = 0; }
+    pos.push([n, c, x, y]); x += w + 8; rowH = Math.max(rowH, h);
+  }
+  out.width = maxW; out.height = y + rowH + 10;
+  const o = out.getContext('2d');
+  o.imageSmoothingEnabled = false;
+  o.fillStyle = '#6a7a9a'; o.fillRect(0, 0, out.width, out.height);
+  o.font = '10px monospace'; o.fillStyle = '#fff';
+  for (const [n, c, px, py] of pos) {
+    o.fillText(n, px, py + 10);
+    o.drawImage(c, px, py + 12, c.width * S, c.height * S);
+  }
+</script>
+</body>
+</html>

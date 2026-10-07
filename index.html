@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Kinhu's Adventure</title>
+<meta name="description" content="Kinhu's Adventure: um jogo de plataforma em pixel art no estilo Super Nintendo. Ajude o Kinhu a pegar o ônibus, atravessar o centro e sobreviver ao escritório!">
+<meta name="theme-color" content="#00153b">
+<meta property="og:title" content="Kinhu's Adventure">
+<meta property="og:description" content="Plataforma em pixel art estilo SNES. Do ponto de ônibus até a sala dos servidores!">
+<meta property="og:image" content="assets/preview.png">
+<link rel="icon" type="image/png" href="assets/icon.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main id="wrap">
+  <canvas id="screen" width="256" height="224" aria-label="Tela do jogo Kinhu's Adventure"></canvas>
+  <nav id="bar" aria-label="Opções">
+    <button id="btnSave" type="button" title="Baixa um arquivo .json com o seu progresso">Baixar save</button>
+    <button id="btnLoad" type="button" title="Carrega um arquivo .json de progresso">Carregar save</button>
+    <button id="btnMute" type="button" title="Liga/desliga o som (tecla M)">Som</button>
+    <button id="btnFull" type="button" title="Tela cheia (tecla F)">Tela cheia</button>
+  </nav>
+</main>
+
+<div id="touch" aria-hidden="true">
+  <div class="pad">
+    <button class="up" data-act="up">▲</button>
+    <button class="left" data-act="left">◀</button>
+    <button class="right" data-act="right">▶</button>
+    <button class="down" data-act="down">▼</button>
+  </div>
+  <button class="start" data-act="start">START</button>
+  <div class="ab">
+    <button class="b" data-act="run,back">B</button>
+    <button class="a" data-act="jump,confirm">A</button>
+  </div>
+</div>
+
+<input type="file" id="loadFile" accept=".json,application/json" hidden>
+
+<script src="js/core.js"></script>
+<script src="js/sprites.js"></script>
+<script src="js/world.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/levels.js"></script>
+<script src="js/save.js"></script>
+<script src="js/game.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
