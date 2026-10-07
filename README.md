@@ -72,7 +72,15 @@ Sem usar Git: crie o repositório, clique em **Add file → Upload files**, arra
 
 ## Jogar localmente
 
-Dá para abrir o `index.html` direto no navegador (duplo clique). Se preferir um servidor local:
+Dá para abrir o `index.html` direto no navegador (duplo clique).
+
+Também existe a versão em **arquivo único**: `dist/kinhus-adventure.html` (cerca de 210 KB, com tudo embutido). Dá para mandar esse arquivo por e-mail ou WhatsApp e abrir em qualquer navegador, mesmo sem internet. Depois de mudar o código, gere de novo com:
+
+```bash
+node tools/bundle.js
+```
+
+Se preferir um servidor local:
 
 ```bash
 python -m http.server 8765

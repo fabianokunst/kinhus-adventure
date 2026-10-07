@@ -155,21 +155,25 @@ const SONGS = {
 
 const Sound = {
   ctx: null, master: null, music: null, sfx: null, noise: null, waves: {},
-  muted: false, song: null, songName: null, pending: null, tempo: 1, timer: null,
+  VOL: 1, muted: false, song: null, songName: null, pending: null, tempo: 1, timer: null,
   init() {
     if (this.ctx) return;
     const AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return;
     const c = this.ctx = new AC();
-    this.master = c.createGain(); this.master.gain.value = this.muted ? 0 : 0.6; this.master.connect(c.destination);
-    this.music = c.createGain(); this.music.gain.value = 0.55; this.music.connect(this.master);
+    // compressor no final evita estourar quando muitos sons tocam juntos
+    const comp = c.createDynamicsCompressor();
+    comp.threshold.value = -10; comp.knee.value = 8; comp.ratio.value = 6; comp.attack.value = 0.003; comp.release.value = 0.2;
+    comp.connect(c.destination);
+    this.master = c.createGain(); this.master.gain.value = this.muted ? 0 : this.VOL; this.master.connect(comp);
+    this.music = c.createGain(); this.music.gain.value = 0.9; this.music.connect(this.master);
     // eco (marca registrada do som do SNES)
     const delay = c.createDelay(1); delay.delayTime.value = 0.21;
     const fb = c.createGain(); fb.gain.value = 0.3;
     const wet = c.createGain(); wet.gain.value = 0.28;
     const lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2600;
     this.music.connect(delay); delay.connect(lp); lp.connect(fb); fb.connect(delay); lp.connect(wet); wet.connect(this.master);
-    this.sfx = c.createGain(); this.sfx.gain.value = 0.7; this.sfx.connect(this.master);
+    this.sfx = c.createGain(); this.sfx.gain.value = 1.7; this.sfx.connect(this.master);
     for (const d of [12, 25, 50]) {
       const n = 48, re = new Float32Array(n), im = new Float32Array(n);
       for (let k = 1; k < n; k++) re[k] = (2 / (k * Math.PI)) * Math.sin(k * Math.PI * (d / 100));
@@ -189,7 +193,7 @@ const Sound = {
   },
   setMuted(m) {
     this.muted = m;
-    if (this.master) this.master.gain.setTargetAtTime(m ? 0 : 0.6, this.ctx.currentTime, 0.02);
+    if (this.master) this.master.gain.setTargetAtTime(m ? 0 : this.VOL, this.ctx.currentTime, 0.02);
   },
   play(name, force) {
     if (!this.ctx || this.ctx.state !== 'running') { this.pending = name; return; }
