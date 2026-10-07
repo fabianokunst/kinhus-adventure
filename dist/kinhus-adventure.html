@@ -3882,13 +3882,14 @@ const App = {
   },
   newGame() {
     Game.reset();
+    if (Game.cheatLives) Game.lives = 9;
     Save.data.plays++;
     Save.persist();
     this.go('story');
   },
   startLevel(idx) {
     Game.levelIdx = idx; Game.checkpoint = false;
-    Game.lives = Math.max(Game.lives, 3);
+    Game.lives = Math.max(Game.lives, Game.cheatLives ? 9 : 3);
     this.go('intro');
   },
 
@@ -4000,6 +4001,7 @@ const App = {
     }
     switch (this.state) {
       case 'title':
+        this.checkCheat();
         if (this.sub === 'help') { if (Input.pressed('confirm') || Input.pressed('back') || Input.pressed('start')) { this.sub = null; Sound.fx('cursor'); } break; }
         if (this.menu) this.updateMenu();
         else if (Input.pressed('start') || Input.pressed('confirm') || Input.pressed('jump')) { Sound.unlock(); Sound.fx('select'); this.openTitleMenu(); }
@@ -4024,6 +4026,23 @@ const App = {
       case 'ending':
         if (this.t > 600 && (Input.pressed('start') || Input.pressed('confirm'))) this.go('title');
         break;
+    }
+  },
+  // código secreto na tela de título: ▲▲▼▼◄►◄► X Z
+  checkCheat() {
+    const seq = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'run', 'jump'];
+    for (const a of ['up', 'down', 'left', 'right', 'run', 'jump']) {
+      if (!Input.pressed(a)) continue;
+      if (a === 'jump' && Input.pressed('up')) continue;
+      this.cheat = seq[this.cheat | 0] === a ? (this.cheat | 0) + 1 : a === 'up' ? 1 : 0;
+      if (this.cheat === seq.length) {
+        this.cheat = 0;
+        Save.data.unlocked = LEVELS.length; Save.persist(); Game.unlocked = LEVELS.length;
+        Game.cheatLives = true;
+        Sound.fx('kinhurine'); this.toast('MODO KINHURINE: TODAS AS FASES + 9 VIDAS!');
+        this.openTitleMenu();
+      }
+      break;
     }
   },
   onDeath() {
