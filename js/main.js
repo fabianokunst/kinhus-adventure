@@ -20,6 +20,7 @@ const CREDITS = [
   'DEPOIS DE UM LONGO DIA', 'DE ÔNIBUS, CHEFES E BUGS,', 'KINHU VOLTA PARA CASA', 'COM O DEVER CUMPRIDO.', '', '',
   '- KINHU\'S ADVENTURE -', '', 'UMA AVENTURA URBANA', 'EM 5 FASES', '', '',
   '{SCORE}', '', '',
+  'ARTE DA CAPA', 'FABIANO KUNST', '', '',
   'OBRIGADO POR JOGAR!', '', '', '', 'FIM',
 ];
 
