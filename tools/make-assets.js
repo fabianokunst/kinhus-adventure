@@ -23,7 +23,7 @@ setTimeout(() => {
   ix.drawImage(SPR.kinhuHead, 0, 0, 20, 13, 2, 12, 60, 39);
   fs.writeFileSync(path.join(root, 'assets', 'icon.png'), icon.toPNG());
 
-  App.go('title', null, true); step(2); save('01-titulo');
+  App.go('title', null, true); step(130); save('01-titulo');
   Game.reset(); Game.levelIdx = 0; App.go('play', null, true);
   World.player.x = 13 * 16; World.player.y = 140; World.player.vy = -3; World.player.onGround = false; World.cam.x = 0; step(4); save('02-bairro');
   fs.copyFileSync(path.join(dir, '02-bairro.png'), path.join(root, 'assets', 'preview.png'));
