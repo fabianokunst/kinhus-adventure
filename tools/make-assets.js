@@ -5,7 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const { SoftCanvas, boot } = require('./softcanvas');
 const root = path.join(__dirname, '..');
-const { screen } = boot(root, ['js/core.js', 'js/sprites.js', 'js/world.js', 'js/audio.js', 'js/levels.js', 'js/save.js', 'js/game.js', 'js/main.js']);
+const { screen } = boot(root, ['js/core.js', 'js/sprites.js', 'js/world.js', 'js/audio.js', 'js/levels.js', 'js/save.js', 'js/game.js', 'js/title.js', 'js/main.js']);
 const press = {};
 Input.update = function () { this.prev = this.cur; const cur = {}; for (const a in this.map) { cur[a] = !!press[a]; cur[a + '!'] = false; } this.cur = cur; };
 const dir = path.join(root, 'assets', 'screens');

@@ -101,7 +101,7 @@ js/levels.js        mapas das 5 fases (texto: cada caractere é um bloco de 16×
 js/save.js          salvamento no navegador e arquivo de save .json
 js/game.js          física, Kinhu, inimigos, itens, chefe, chegada nas fases
 js/main.js          telas, menus, HUD, transições e laço principal (60 fps fixos)
-assets/title.png    arte da capa (ilustração de Fabiano Kunst)
+js/title.js         tela de título: logo em pixel art com relevo e cena animada
 tools/              ferramentas de desenvolvimento em Node (não são necessárias para jogar)
 ```
 
@@ -125,6 +125,5 @@ Gera prints de todas as fases sem abrir o navegador. `tools/sheet.js`, `tools/sc
 
 ## Créditos
 
-- Arte da capa: ilustração em pixel art de Fabiano Kunst.
 - Personagem inspirado no Kinhu de verdade: careca, barba, óculos e camiseta laranja.
-- Código, pixel art do jogo, músicas e efeitos sonoros: gerados para este projeto, sem nenhum arquivo de terceiros.
+- Logo, capa, pixel art, músicas e efeitos sonoros: tudo gerado em código para este projeto, sem nenhuma imagem ou som de terceiros.

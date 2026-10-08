@@ -14,7 +14,6 @@ html = html.replace(/<link rel="icon" type="image\/png" href="assets\/icon.png">
 html = html.replace(/\s*<meta property="og:image"[^>]*>/, '');
 html = html.replace(/<script src="(js\/[a-z]+\.js)"><\/script>/g, (m, f) => {
   let js = read(f);
-  if (f === 'js/main.js') js = js.replace("'assets/title.png'", () => "'" + dataUri('assets/title.png') + "'");
   if (js.includes('</script')) throw new Error('</script dentro de ' + f);
   return '<script>\n' + js + '\n</script>';
 });

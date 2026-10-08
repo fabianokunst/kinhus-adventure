@@ -20,12 +20,11 @@ const CREDITS = [
   'DEPOIS DE UM LONGO DIA', 'DE ÔNIBUS, CHEFES E BUGS,', 'KINHU VOLTA PARA CASA', 'COM O DEVER CUMPRIDO.', '', '',
   '- KINHU\'S ADVENTURE -', '', 'UMA AVENTURA URBANA', 'EM 5 FASES', '', '',
   '{SCORE}', '', '',
-  'ARTE DA CAPA', 'FABIANO KUNST', '', '',
   'OBRIGADO POR JOGAR!', '', '', '', 'FIM',
 ];
 
 const App = {
-  state: 'title', t: 0, sub: null, menu: null, trans: null, toastMsg: null, toastT: 0, titleImg: null, saveIcon: 0,
+  state: 'title', t: 0, sub: null, menu: null, trans: null, toastMsg: null, toastT: 0, saveIcon: 0,
   storyT: 0,
 
   init() {
@@ -33,8 +32,6 @@ const App = {
     Save.load();
     Game.hiscore = Save.data.hiscore;
     Game.unlocked = Save.data.unlocked;
-    this.titleImg = new Image();
-    this.titleImg.src = 'assets/title.png';
     this.setupDom();
     fitScreen();
     this.go('title', null, true);
@@ -349,18 +346,13 @@ const App = {
     ctx.fillRect(0, 0, W, H);
   },
   drawTitle() {
-    const img = this.titleImg;
-    if (img && (img.complete || img.data) && img.width) {
-      ctx.drawImage(img, 0, 0);
-      ctx.drawImage(img, 0, 195, 256, 1, 0, 196, 256, 28);
-    } else { ctx.fillStyle = '#a2c4ff'; ctx.fillRect(0, 0, W, H); Font.draw("KINHU'S ADVENTURE", W / 2, 80, '#ffbf30', { align: 'center', scale: 2, outline: true }); }
+    TitleArt.draw(this.t);
     if (this.sub === 'help') { this.drawHelp(); return; }
     if (!this.menu) {
-      if (Math.floor(this.t / 30) % 2 === 0) { ctx.fillStyle = '#ffffff'; ctx.fillRect(101, 130, 60, 1); ctx.fillRect(101, 150, 60, 1); ctx.fillRect(101, 130, 1, 21); ctx.fillRect(160, 130, 1, 21); }
       const touch = typeof document !== 'undefined' && document.body && document.body.classList.contains('touch');
       if (Math.floor(this.t / 30) % 2 === 0) Font.draw(touch ? 'TOQUE PARA COMEÇAR' : 'APERTE ENTER OU ESPAÇO', W / 2, 205, '#ffffff', { align: 'center', outline: true });
       if (Game.hiscore > 0) Font.draw('RECORDE ' + String(Game.hiscore).padStart(7, '0'), W / 2, 215, '#ffe384', { align: 'center' });
-    } else this.drawMenu(this.menu, W / 2, 118);
+    } else this.drawMenu(this.menu, W / 2, 94);
   },
   drawHelp() {
     ctx.fillStyle = 'rgba(0,21,59,0.94)'; ctx.fillRect(12, 20, W - 24, H - 40);

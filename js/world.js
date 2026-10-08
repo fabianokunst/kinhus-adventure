@@ -406,6 +406,9 @@ const OBJ = {};
     g.outline(OUT);
     const cv = g.canvas();
     Font.draw('CENTRO', 7, 2, '#f8a020', { ctx: cv.getContext('2d'), shadow: null });
+    // versão virada para a direita (tela de título)
+    OBJ.busR = g.flip().canvas();
+    Font.draw('CENTRO', 86, 2, '#f8a020', { ctx: OBJ.busR.getContext('2d'), shadow: null });
     return cv;
   })();
   // ponto de ônibus (meta da fase 1)
@@ -762,9 +765,10 @@ const BG = {
     return L;
   },
   // desenha o fundo do tema
-  draw(name, camX, t, c = ctx) {
+  draw(name, camX, t, c = ctx, opt = {}) {
     const L = this.get(name);
     c.drawImage(L.sky, 0, 0);
+    if (opt.afterSky) opt.afterSky();
     for (const ly of L.layers) {
       const iw = ly.img.width;
       let off = -(camX * ly.f + (ly.auto ? t * ly.auto * -1 : 0));

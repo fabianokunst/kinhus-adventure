@@ -7,7 +7,7 @@ const { boot } = require('./softcanvas');
 const root = path.join(__dirname, '..');
 const out = process.argv[2] || path.join(root, 'tools', 'out');
 fs.mkdirSync(out, { recursive: true });
-const { screen } = boot(root, ['js/core.js', 'js/sprites.js', 'js/world.js', 'js/audio.js', 'js/levels.js', 'js/save.js', 'js/game.js', 'js/main.js']);
+const { screen } = boot(root, ['js/core.js', 'js/sprites.js', 'js/world.js', 'js/audio.js', 'js/levels.js', 'js/save.js', 'js/game.js', 'js/title.js', 'js/main.js']);
 
 const shot = name => fs.writeFileSync(path.join(out, name + '.png'), screen.toPNG());
 let errors = 0;
